@@ -1,6 +1,7 @@
 const roleService = require('../Services/roleServices');
 const roleValidator = require('../validator/RoleValidator');
 const permissionService = require('../Services/permissionServices');
+const { response } = require('express');
 
 class RoleController {
     createRole = async (req, res) => {
@@ -22,7 +23,16 @@ class RoleController {
         }
     };
 
-    edit = async (req, res) => {};
+    update = async (req, res) => {
+        const formRole = req.body;
+        const doesNameRole = await roleValidator.RoleNameExistsUpdate(formRole._id,formRole.name);
+        if (doesNameRole) {
+            await roleService.updateRole(req.body).then(response => {
+                res.status(200).json(response)
+            })
+        }
+        
+    };
 
     delete = async (req, res) => {
         await roleService.delete();

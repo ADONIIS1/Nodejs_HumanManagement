@@ -21,9 +21,9 @@ class DepartmentController {
         const department = new Department(formDepartment);
 
         await department
-            .save({})
+            .save()
             .then((data) => {
-                res.json(data);
+                res.status(200).json(data);
             })
             .catch((err) => {
                 console.log(err);
@@ -33,13 +33,22 @@ class DepartmentController {
 
     // [DELETE]/salary/:id/update
     async updateDepartment(req, res, next) {
-        Department.updateOne({ _id: req.body._id }, req.body)
-            .then(() => {
-                res.json('Sửa thành công');
-            })
-            .catch((err) => {
-                res.status(500).json('Sửa không thành công, lỗi server');
-            });
+        try {
+            const { _id, ...updateData } = req.body;
+
+            if (!_id) {
+                return res.status(400).json({ message: 'Không tìm thấy ID Department' });
+            }
+            await Department.updateOne({ _id }, updateData)
+                .then(() => {
+                    res.status(200).json('Sửa thành công');
+                })
+                .catch((err) => {
+                    return res.status(500).json({ message: 'Lỗi server khi sửa', error: err.message });
+                });
+        } catch (err) {
+            return res.status(500).json({ message: 'Lỗi server khi sửa', error: err.message });
+        }
     }
 
     // [DELETE]/salary/:id/delete

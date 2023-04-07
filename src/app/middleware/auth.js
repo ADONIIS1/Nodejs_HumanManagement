@@ -4,7 +4,7 @@ class Auth{
   isAuth = async (req,res,next) => {
     const accessToken = req.headers.authorization;
     if (!accessToken){
-      return res.status(401).send('Token không hợp lệ!');
+      return res.status(401).json('Token không hợp lệ!');
     }
     const verified = await tokenService.verifyToken(accessToken.replace('Bearer ', ''))
                 .then((data) => {
@@ -14,7 +14,7 @@ class Auth{
     })
     console.log('Check Token is Accessed : ',verified);
     if(!verified){
-      return res.status(401).send('Token không hợp lệ!');
+      return res.status(401).json('Token không hợp lệ!');
     }
     req.data = verified
     next()

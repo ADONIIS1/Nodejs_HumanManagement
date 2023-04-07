@@ -119,16 +119,10 @@ class UserService{
                 }).catch(err =>{
                     return err;
                 });
-
-          console.log('Check data decoded : ',decodedByToken);
-
           if(decodedByToken){
              await this.getRoleByEmail(decodedByToken.email)
                       .then(res => {
-                        resolve({
-                          email : res.email,
-                          roles : res.roles.map(p => p.name)
-                        });
+                        resolve(res);
                       }).catch(err => {
                         reject(err);
                       })

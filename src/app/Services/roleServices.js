@@ -27,7 +27,18 @@ class RoleService {
             resolve(data);
         });
     };
-
+    updateRole = async (req = {}) => {
+        return new Promise( (resolve, reject) => {
+                if (!req._id) {
+                    reject({ message: 'Không tìm thấy ID người dùng' });
+                }
+                 Role.updateOne({ _id : req._id },req)
+                    .then(() => {
+                        resolve('Sửa thành công');
+                    })
+        })
+    }
+        
     getPermissionByRole = async (roleId = '') => {
         return new Promise(async (resolve, reject) => {
             await Role.findById(roleId)

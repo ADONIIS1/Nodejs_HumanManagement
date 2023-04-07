@@ -24,5 +24,10 @@ class RoleValidation{
           )
         })
     }
+    RoleNameExistsUpdate = async (id = '',name = '') => {
+      return new Promise(async (resolve, reject) => {
+        
+      })
+  }
 }
 module.exports = new RoleValidation

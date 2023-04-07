@@ -8,7 +8,7 @@ const salaryController = require('../app/controllers/SalaryController');
 router.get('/getAll', salaryController.listSalary)
 router.post('/create', salaryController.createSalary)
 router.delete('/:id/delete', salaryController.deleteSalary)
-router.put('/:id/update', salaryController.updateSalary)
+router.post('/update', salaryController.updateSalary)
 router.get('/search', salaryController.search)
 
 

@@ -16,7 +16,7 @@ const User = new Schema(
         avatar: { type: String },
         username: { type: String, slug: "fullname", unique: true },
         departmentID: { type: Schema.Types.ObjectId, ref: "Department" },
-        degreeID: { type: Schema.Types.ObjectId, sref: "Degree" },
+        degreeID: { type: Schema.Types.ObjectId, ref: "Degree" },
         salaryID: { type: Schema.Types.ObjectId, ref: "Salary" },
         roles:[ 
             { 
